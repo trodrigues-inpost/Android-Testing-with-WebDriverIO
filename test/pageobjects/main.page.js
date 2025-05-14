@@ -1,0 +1,32 @@
+// The main page of the sauce labs application.
+
+class Page {
+    get isProductsPage() { return $('~test-PRODUCTS').isDisplayed() }
+    get isLoggedIn() { return $('~test-PRODUCTS').isDisplayed() }
+    get isLoggedOut() { return $('~test-LOGIN').isDisplayed() }
+    get isErrorMessage() { return $('~test-error').isDisplayed() }
+
+    Page() {
+        // Constructor for the Page class
+    }
+
+    static async waitFor([element]) {
+        // Wait for the element to be displayed
+        await element.waitForDisplayed({ timeout: 5000 })
+    }
+
+    static async logout() {
+        if (await this.isLoggedIn) {
+            // Click on the menu button
+            await $('~test-Menu').click()
+            
+            // Wait for the logout button to be displayed
+            await $('~test-LOGOUT').waitForDisplayed({ timeout: 5000 })
+
+            // Click on the logout button
+            await $('~test-LOGOUT').click()
+        }
+    }
+}
+
+export default Page

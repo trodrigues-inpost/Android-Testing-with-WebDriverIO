@@ -1,10 +1,18 @@
+// Import the base Page class
+import Page from './main.page.js'
+
 // Login Page Object
-class LoginPage {
+class LoginPage extends Page {
     get usernameInput() { return $('~test-Username') }
     get passwordInput() { return $('~test-Password') }
     get loginButton() { return $('~test-LOGIN') }
     get errorMessage() { return $('~test-error') }
     get productsPage() { return $('~test-PRODUCTS') }
+
+    // Override the waitFor method to wait for the login button
+    static async waitFor() {
+        await loginButton.waitForDisplayed({ timeout: 5000 })
+    }
 
     // Login method to handle different scenarios
     async login(username, password) {

@@ -1,22 +1,32 @@
 // Login in the app
 import LoginPage from '../pageobjects/login.page.js';
+import Page from '../pageobjects/main.page.js';
 
-describe('Swag Labs Login', () => {
+describe('Login Test', () => {
 
-    // Test case for logging in with invalid credentials
-    it('should not login with invalid credentials', async () => {
-        // Login with invalid credentials
-        await LoginPage.loginWithInvalidCredentials();
+    beforeEach(async () => {
+        // Check if the login button is displayed
+        await LoginPage.waitFor();
 
+        // If the login button is displayed, it means the user is logged out
+        await LoginPage.logout();
+    });
+
+    
+    // Test case for logging in with valid credentials
+    it('should not login with empty credentials', async () => {
+        // Login with empty credentials
+        await LoginPage.loginWithEmptyCredentials();
+        
         // Check if the error message is displayed
         const isErrorDisplayed = await LoginPage.isErrorMessageDisplayed();
         expect(isErrorDisplayed);
     });
 
-    // Test case for logging in with valid credentials
-    it('should not login with empty credentials', async () => {
-        // Login with empty credentials
-        await LoginPage.loginWithEmptyCredentials();
+    // Test case for logging in with invalid credentials
+    it('should not login with invalid credentials', async () => {
+        // Login with invalid credentials
+        await LoginPage.loginWithInvalidCredentials();
 
         // Check if the error message is displayed
         const isErrorDisplayed = await LoginPage.isErrorMessageDisplayed();
