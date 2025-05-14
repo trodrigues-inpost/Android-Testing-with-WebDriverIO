@@ -6,13 +6,6 @@ class LoginPage extends Page {
     get usernameInput() { return $('~test-Username') }
     get passwordInput() { return $('~test-Password') }
     get loginButton() { return $('~test-LOGIN') }
-    get errorMessage() { return $('~test-error') }
-    get productsPage() { return $('~test-PRODUCTS') }
-
-    // Override the waitFor method to wait for the login button
-    static async waitFor() {
-        await loginButton.waitForDisplayed({ timeout: 5000 })
-    }
 
     // Login method to handle different scenarios
     async login(username, password) {
@@ -21,14 +14,14 @@ class LoginPage extends Page {
         await this.loginButton.click()
     }
 
-    // Check if the error message is displayed
+    // Check if an error message is displayed
     async isErrorMessageDisplayed() {
-        return await this.errorMessage.isDisplayed()
+        return await this.isErrorMessage;
     }
 
     // Check if the products page is displayed
     async isProductsPageDisplayed() {
-        return await this.productsPage.isDisplayed()
+        return await this.isProductsPage;
     }
 
     // Test cases for different login scenarios

@@ -1,15 +1,17 @@
 // Login in the app
+import { waitForElement } from '../helpermethods/elements.helper.js';
 import LoginPage from '../pageobjects/login.page.js';
+import '../helpermethods/elements.helper.js';
 import Page from '../pageobjects/main.page.js';
 
 describe('Login Test', () => {
 
     beforeEach(async () => {
         // Check if the login button is displayed
-        await LoginPage.waitFor();
+        await waitForElement(LoginPage.loginButton);
 
         // If the login button is displayed, it means the user is logged out
-        await LoginPage.logout();
+        await Page.logout();
     });
 
     

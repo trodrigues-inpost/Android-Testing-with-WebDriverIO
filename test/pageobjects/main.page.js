@@ -10,11 +10,6 @@ class Page {
         // Constructor for the Page class
     }
 
-    static async waitFor([element]) {
-        // Wait for the element to be displayed
-        await element.waitForDisplayed({ timeout: 5000 })
-    }
-
     static async logout() {
         if (await this.isLoggedIn) {
             // Click on the menu button
