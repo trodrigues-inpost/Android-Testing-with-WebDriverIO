@@ -59,7 +59,7 @@ Tests should be inside the `specs` folder, for example:
 - `./test/specs/test1.js`
 - `./test/specs/test123.js`
 
-Altough, it depends on your set up.
+**Altough, it depends on your set up.**
 ```js
 specs: [
     './test/specs/**/*.js'
