@@ -1,0 +1,111 @@
+{
+  "suites": [
+    {
+      "name": "Login Test",
+      "duration": 29775,
+      "start": "2025-05-14T09:30:43.067Z",
+      "end": "2025-05-14T09:31:12.842Z",
+      "sessionId": "09902416-fa24-4b40-ae09-157d9b04f5c9",
+      "tests": [
+        {
+          "name": "should not login with empty credentials",
+          "start": "2025-05-14T09:30:43.069Z",
+          "end": "2025-05-14T09:30:49.375Z",
+          "duration": 6306,
+          "state": "passed"
+        },
+        {
+          "name": "should not login with invalid credentials",
+          "start": "2025-05-14T09:30:49.376Z",
+          "end": "2025-05-14T09:30:54.235Z",
+          "duration": 4859,
+          "state": "passed"
+        },
+        {
+          "name": "should not login with empty username",
+          "start": "2025-05-14T09:30:54.236Z",
+          "end": "2025-05-14T09:30:58.850Z",
+          "duration": 4614,
+          "state": "passed"
+        },
+        {
+          "name": "should not login with empty password",
+          "start": "2025-05-14T09:30:58.851Z",
+          "end": "2025-05-14T09:31:03.943Z",
+          "duration": 5092,
+          "state": "passed"
+        },
+        {
+          "name": "should not login with invalid username and valid password",
+          "start": "2025-05-14T09:31:03.946Z",
+          "end": "2025-05-14T09:31:09.328Z",
+          "duration": 5382,
+          "state": "passed"
+        },
+        {
+          "name": "should login with valid credentials",
+          "start": "2025-05-14T09:31:09.328Z",
+          "end": "2025-05-14T09:31:12.839Z",
+          "duration": 3511,
+          "state": "passed"
+        }
+      ],
+      "hooks": [
+        {
+          "start": "2025-05-14T09:30:43.069Z",
+          "end": "2025-05-14T09:30:44.260Z",
+          "duration": 1191,
+          "title": "\"before each\" hook for Login Test",
+          "associatedSuite": "Login Test",
+          "associatedTest": "should not login with empty credentials",
+          "state": "passed"
+        },
+        {
+          "start": "2025-05-14T09:30:49.377Z",
+          "end": "2025-05-14T09:30:49.571Z",
+          "duration": 194,
+          "title": "\"before each\" hook for Login Test",
+          "associatedSuite": "Login Test",
+          "associatedTest": "should not login with invalid credentials",
+          "state": "passed"
+        },
+        {
+          "start": "2025-05-14T09:30:54.236Z",
+          "end": "2025-05-14T09:30:54.432Z",
+          "duration": 196,
+          "title": "\"before each\" hook for Login Test",
+          "associatedSuite": "Login Test",
+          "associatedTest": "should not login with empty username",
+          "state": "passed"
+        },
+        {
+          "start": "2025-05-14T09:30:58.851Z",
+          "end": "2025-05-14T09:30:59.038Z",
+          "duration": 187,
+          "title": "\"before each\" hook for Login Test",
+          "associatedSuite": "Login Test",
+          "associatedTest": "should not login with empty password",
+          "state": "passed"
+        },
+        {
+          "start": "2025-05-14T09:31:03.946Z",
+          "end": "2025-05-14T09:31:04.100Z",
+          "duration": 154,
+          "title": "\"before each\" hook for Login Test",
+          "associatedSuite": "Login Test",
+          "associatedTest": "should not login with invalid username and valid password",
+          "state": "passed"
+        },
+        {
+          "start": "2025-05-14T09:31:09.328Z",
+          "end": "2025-05-14T09:31:09.472Z",
+          "duration": 144,
+          "title": "\"before each\" hook for Login Test",
+          "associatedSuite": "Login Test",
+          "associatedTest": "should login with valid credentials",
+          "state": "passed"
+        }
+      ]
+    }
+  ]
+}
