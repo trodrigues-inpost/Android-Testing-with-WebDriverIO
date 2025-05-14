@@ -1,4 +1,6 @@
 // The main page of the sauce labs application.
+import 'dotenv/config';
+import { waitForElement } from '../helpermethods/elements.helper.js';
 
 class Page {
     get isProductsPage() { return $('~test-PRODUCTS').isDisplayed() }
@@ -16,7 +18,7 @@ class Page {
             await $('~test-Menu').click()
             
             // Wait for the logout button to be displayed
-            await $('~test-LOGOUT').waitForDisplayed({ timeout: 5000 })
+            await waitForElement($('~test-LOGOUT'))
 
             // Click on the logout button
             await $('~test-LOGOUT').click()

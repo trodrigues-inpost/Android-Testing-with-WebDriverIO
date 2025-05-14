@@ -1,8 +1,9 @@
 // Login in the app
 import { waitForElement } from '../helpermethods/elements.helper.js';
 import LoginPage from '../pageobjects/login.page.js';
-import '../helpermethods/elements.helper.js';
 import Page from '../pageobjects/main.page.js';
+import '../helpermethods/elements.helper.js';
+import 'dotenv/config';
 
 describe('Login Test', () => {
 

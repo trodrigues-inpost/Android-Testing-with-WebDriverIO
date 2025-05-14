@@ -1,5 +1,6 @@
 // Import the base Page class
 import Page from './main.page.js'
+import 'dotenv/config';
 
 // Login Page Object
 class LoginPage extends Page {
