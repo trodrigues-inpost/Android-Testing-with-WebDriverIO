@@ -1,13 +1,15 @@
 // Login in the app
-import { waitForElement } from '../helpermethods/elements.helper.js';
+import '../helpermethods/elements.helper.js';
 import LoginPage from '../pageobjects/login.page.js';
 import Page from '../pageobjects/main.page.js';
-import '../helpermethods/elements.helper.js';
+import { waitForElement } from '../helpermethods/elements.helper.js';
 import 'dotenv/config';
 
 describe('Login Test', () => {
 
     beforeEach(async () => {
+        await browser.pause(2000);
+        
         // Check if the login button is displayed
         await waitForElement(LoginPage.loginButton);
 

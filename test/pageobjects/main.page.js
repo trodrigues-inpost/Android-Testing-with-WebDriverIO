@@ -3,10 +3,16 @@ import 'dotenv/config';
 import { waitForElement } from '../helpermethods/elements.helper.js';
 
 class Page {
-    get isProductsPage() { return $('~test-PRODUCTS').isDisplayed() }
-    get isLoggedIn() { return $('~test-PRODUCTS').isDisplayed() }
-    get isLoggedOut() { return $('~test-LOGIN').isDisplayed() }
-    get isErrorMessage() { return $('~test-error').isDisplayed() }
+    // Page elements state
+    static get isProductsPage() { return $('~test-PRODUCTS').isDisplayed() }
+    static get isLoggedIn() { return $('~test-PRODUCTS').isDisplayed() }
+    static get isLoggedOut() { return $('~test-LOGIN').iosDisplayed() }
+    static get isErrorMessage() { return $('~test-error').isDisplayed() }
+
+    // Page elements
+    static get productsPage() { return $('~test-PRODUCTS') }
+    static get loginButton() { return $('~test-LOGIN') }
+    static get addToCartButtons() { return $('~test-ADD TO CART') }
 
     Page() {
         // Constructor for the Page class
