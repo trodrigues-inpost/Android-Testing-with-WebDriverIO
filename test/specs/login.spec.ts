@@ -6,70 +6,50 @@ import Page from '../pageobjects/page.ts';
 import '../helpermethods/elements.helper.js';
 import 'dotenv/config';
 
-describe('Login Test', () => {
+const logins = [
+    [false, 'empty credentials', '', ''],
+    [false, 'empty username', '', 'some-password'],
+    [false, 'empty password', process.env.STANDARD_USER, ''],
+    [false, 'invalid credentials', 'invalid_user', 'invalid_password'],
+    [false, 'valid username and invalid password', process.env.STANDARD_USER, 'invalid_password'],
+    [false, 'valid password and invalid username', 'invalid_user', process.env.STANDARD_USER_PASSWORD],
+    [false, 'locked out user', process.env.LOCKED_OUT_USER, process.env.STANDARD_USER_PASSWORD],
+    [true, 'valid credentials', process.env.STANDARD_USER, process.env.STANDARD_USER_PASSWORD],
+];
+
+describe('The Login Feature', () => {
 
     beforeEach(async () => {
-        // Check if the login button is displayed
-        await waitFE(LoginPage.loginButton);
-
-        // If the login button is displayed, it means the user is logged out
-        await Page.logout();
+        // Ensure we're logged out before each test
+        if (await Page.isLoggedIn()) {
+            await Page.logout();
+        }
     });
 
-    
-    // Test case for logging in with valid credentials
-    it('should only login with valid credentials', async () => {
-        //* INVALID LOGIN
-        //? Login with empty credentials
-        await LoginPage.login('', '');
-        
-        // Check if the error message is displayed
-        var isErrorDisplayed = await Page.isErrorMessage;
-        expect(isErrorDisplayed);
+    afterEach(async () => {
+        // Ensure we're logged out after each test
+        //? Some apps hold login state aggressively
+        if (await Page.isLoggedIn()) {
+            await Page.logout();
+        }
+    });
 
-        
-        //* INVALID LOGIN
-        //? Login with invalid credentials
-        await LoginPage.login('invalid_user', 'invalid_password');
+    logins.forEach(([shouldLogin, description, username, password]) => {
+        it(`should ${shouldLogin ? '' : 'not '}login with ${description}`, async () => {
+            // Perform login attempt
+            await LoginPage.login(username, password);
 
-        // Check if the error message is displayed
-        isErrorDisplayed = await Page.isErrorMessage;
-        expect(isErrorDisplayed);
-    
+            // Check if the products page is displayed (AKA login success)
+            const isProductsDisplayed = await Page.isProductsPage();
 
-        //* INVALID LOGIN
-        //? Login with empty username
-        await LoginPage.login('', 'secret_sauce')
+            // Assert the expected outcome
+            expect(isProductsDisplayed).toBe(shouldLogin);
 
-        // Check if the error message is displayed
-        isErrorDisplayed = await Page.isErrorMessage;
-        expect(isErrorDisplayed);
-        
-
-        //* INVALID LOGIN
-        //? Login with empty password
-        await LoginPage.login('standard_user', '')
-
-        // Check if the error message is displayed
-        isErrorDisplayed = await Page.isErrorMessage;
-        expect(isErrorDisplayed);
-        
-
-        //* INVALID LOGIN
-        //? Login with invalid username and valid password
-        await LoginPage.login('invalid_user', 'secret_sauce')
-
-        // Check if the error message is displayed
-        isErrorDisplayed = await Page.isErrorMessage;
-        expect(isErrorDisplayed);
-        
-
-        //*VALID LOGIN
-        //? Login with valid credentials
-        await LoginPage.login('standard_user', 'secret_sauce')
-
-        // Check if the products page is displayed
-        const isProductsDisplayed = await Page.isProductsPage;
-        expect(isProductsDisplayed);
+            if (!shouldLogin) {
+                // If the loggin isn't supposed to be successful, check for the error message
+                const isErrorMessageDisplayed = await Page.isErrorMessage();
+                expect(isErrorMessageDisplayed).toBe(true);
+            }
+        });
     });
 });

@@ -9,19 +9,12 @@ describe('Shopping Cart Test Suite', () => {
     var itemsInCartCount = 0;
 
     beforeEach(async () => {
-        await (browser as any).pause(process.env.WAIT);
-        
-        // Check if the login button is displayed
-        try {
-            if (await Page.isLoggedOut) {
-                // If the login button is displayed, it means the user is logged out
-                await waitFE(LoginPage.loginButton);
-                await LoginPage.login('standard_user', 'secret_sauce');
-            }
-        } catch (error) {
-            console.error('Didn\'t find the login button, assuming user is logged in.');
+        if (await Page.isLoggedOut()) {
+            // Perform login with valid credentials
+            await LoginPage.login(process.env.STANDARD_USER, process.env.STANDARD_USER_PASSWORD);
         }
         
+        // Wait for the products page to be displayed
         await waitFE(Page.productsPage);
     });
 
@@ -34,6 +27,7 @@ describe('Shopping Cart Test Suite', () => {
         const titleSelector = `(//android.widget.TextView[@content-desc="test-Item title"])[${randomNumber}]`;
         // XPath for buttons
         const buttonSelector = `(//android.view.ViewGroup[@content-desc="test-ADD TO CART"])[${randomNumber}]`;
+
 
         const itemTitleElement = await $(titleSelector);
         const itemName = await itemTitleElement.getText();
@@ -85,6 +79,40 @@ describe('Shopping Cart Test Suite', () => {
             console.log('[-------------------------------------------------------]');
         }
         expect(isItemInCart).toBe(true);
+
+        // Check if the cart count is correct
+        const cartCount = await $('//android.view.ViewGroup[@content-desc="test-Cart"]/android.view.ViewGroup/android.widget.TextView');
+        const cartCountText = await cartCount.getText();
+        const cartCountNumber = parseInt(cartCountText, 10);
+        if (cartCountNumber > 0) {
+            console.log('[-------------------------------------------------------]');
+            console.log(`| Cart count: ${cartCountNumber}`);
+            console.log('[-------------------------------------------------------]');
+        }   
+        expect(cartCountNumber).toBe(itemsInCartCount);
+    });
+
+    it('should remove items from the cart', async () => {
+        // Click on the cart icon
+        await $('//android.view.ViewGroup[@content-desc="test-Cart"]/android.view.ViewGroup/android.widget.ImageView').click();
+
+        // The page should have the title 'Your Cart'
+        const cartTitle = await $('//android.widget.TextView[@text="YOUR CART"]');
+        expect(cartTitle).toBeDisplayed();
+
+        // Click on the "Remove" button for the item
+        const removeButton = await $(`//android.view.ViewGroup[@content-desc="test-REMOVE"]`);
+        await removeButton.click();
+
+        itemsInCartCount--;
+
+        // Check if the cart is empty
+        const isCartEmpty = await $('//android.widget.TextView[@text="Your cart is empty"]').isDisplayed();
+        if (isCartEmpty) {
+            console.log('[-------------------------------------------------------]');
+            console.log('| Cart is empty');
+            console.log('[-------------------------------------------------------]');
+        }
 
         // Check if the cart count is correct
         const cartCount = await $('//android.view.ViewGroup[@content-desc="test-Cart"]/android.view.ViewGroup/android.widget.TextView');
