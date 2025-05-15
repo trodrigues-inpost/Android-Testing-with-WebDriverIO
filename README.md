@@ -15,7 +15,7 @@ The tests in this repository were made with the [SauceLabs Example App](https://
 
 #
 
-### What you should **NOT** use
+### What you should **NOT USE**
 - **PowerShell** (PS)
 
 ### Configurations you should **NOT** have (`wdio.conf.ts`)
