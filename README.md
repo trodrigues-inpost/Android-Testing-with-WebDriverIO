@@ -15,8 +15,18 @@ The tests in this repository were made with the [SauceLabs Example App](https://
 
 #
 
-### What you should **NOT** to use
+### What you should **NOT** use
 - **PowerShell** (PS)
+
+### Configurations you should **NOT** have (`wdio.conf.ts`)
+```ts
+maxInstances: 10, //! Too many Instances
+```
+
+### Configurations I recommend (`wdio.conf.ts`)
+```ts
+maxInstances: 1,
+```
 
 
 ## After cloning the repository, **you should**:
@@ -25,7 +35,7 @@ The tests in this repository were made with the [SauceLabs Example App](https://
 
 1. **Run `npm init wdio`** inside the repository directory.
 
-2. Update the `.env` file with `DEVICE_NAME` and `PLATFORM_VERSION` according to your needs. *(Check the `wdio.conf.js` file)*
+2. Update the `.env` file with `DEVICE_NAME` and `PLATFORM_VERSION` according to your needs. *(Check the `wdio.conf.ts` file)*
 
 ```ini
 ANDROID_HOME=Path\to\your\android\sdk
@@ -55,31 +65,31 @@ Create your own tests inside the `test` folder.
 
 ### Specs
 Tests should be inside the `specs` folder, for example:
-- `./test/specs/login.test.js`
-- `./test/specs/test1.js`
-- `./test/specs/test123.js`
+- `./test/specs/login.spec.ts`
+- `./test/specs/test1.ts`
+- `./test/specs/test123.ts`
 
 **Altough, it depends on your set up.**
-```js
+```ts
 specs: [
-    './test/specs/**/*.js'
+    './test/specs/**/*.ts'
 ],
 ```
 
 ### Page Objects
 Page Objects can be where you want, but they should be in the `pageobjects` folder.
-- `./test/pageobjects/login.page.js`
-- `./test/pageobjects/pageobject.js`
+- `./test/pageobjects/login.page.ts`
+- `./test/pageobjects/pageobject.ts`
 
 When importing a page object:
-```js
-import LoginPage from '../pageobjects/login.page.js';
+```ts
+import LoginPage from '../pageobjects/login.page.ts';
 ```
 
 
 ## Run tests
 
-To run tests you use `npx wdio run wdio.conf.js`.
+To run tests you use `npx wdio run wdio.conf.ts`.
 
 If something fails, check the bottom of the readme, there are commands that can help.
 
@@ -95,12 +105,11 @@ If something fails, check the bottom of the readme, there are commands that can 
 ### Installing UIAutomator2
 - `appium driver install uiautomator2` (You need Appium installed first)
 
-
-# .env File Preset
+# `.env` File Preset
 ```ini
-ANDROID_HOME=C:\Users\YOUR-USER-NAME\AppData\Local\Android\sdk
-DEVICE_NAME=A12B345CD6E
-PLATFORM_VERSION=12.0
-APP_PATH=apk/Android.SauceLabs.Mobile.Sample.app.2.7.1.apk
-WAIT_TIMEOUT=3000
+       ANDROID_HOME = C:\Users\YOUR-USER-NAME\AppData\Local\Android\sdk
+        DEVICE_NAME = A12B345CD6E
+   PLATFORM_VERSION = 12.0
+           APP_PATH = apk/Android.SauceLabs.Mobile.Sample.app.2.7.1.apk
+       WAIT_TIMEOUT = 3000
 ```
