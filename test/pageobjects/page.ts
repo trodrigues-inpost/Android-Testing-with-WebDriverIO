@@ -1,4 +1,4 @@
-import { $, browser } from '@wdio/globals'
+import { $$, $ } from '@wdio/globals'
 
 // The main page of the sauce labs application.
 import 'dotenv/config';
@@ -12,9 +12,13 @@ class Page {
     static get isLoggedIn()     { return $('~test-PRODUCTS').isDisplayed() }
 
     // Page elements
-    static get addToCartButtons() { return $('~test-ADD TO CART') } // Only works when logged in
     static get productsPage() { return $('~test-PRODUCTS') }        // Only works when logged in
     static get loginButton() { return $('~test-LOGIN') }            // Only works when logged out
+
+    // Page elements (By Xpath)
+    // ADD TO CART buttons
+    // 	(//android.view.ViewGroup[@content-desc="test-ADD TO CART"])[X]
+    static get addToCartButtons() { return $$('//android.view.ViewGroup[@content-desc="test-ADD TO CART"]') }
 
     Page() {
         // Constructor for the Page class

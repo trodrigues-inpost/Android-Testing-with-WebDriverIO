@@ -9,8 +9,6 @@ import 'dotenv/config';
 describe('Login Test', () => {
 
     beforeEach(async () => {
-        await (browser as any).pause(process.env.WAIT);
-        
         // Check if the login button is displayed
         await waitFE(LoginPage.loginButton);
 
@@ -20,58 +18,54 @@ describe('Login Test', () => {
 
     
     // Test case for logging in with valid credentials
-    it('should not login with empty credentials', async () => {
-        // Login with empty credentials
+    it('should only login with valid credentials', async () => {
+        //* INVALID LOGIN
+        //? Login with empty credentials
         await LoginPage.login('', '');
         
         // Check if the error message is displayed
-        const isErrorDisplayed = await Page.isErrorMessage;
+        var isErrorDisplayed = await Page.isErrorMessage;
         expect(isErrorDisplayed);
-    });
 
-    // Test case for logging in with invalid credentials
-    it('should not login with invalid credentials', async () => {
-        // Login with invalid credentials
+        
+        //* INVALID LOGIN
+        //? Login with invalid credentials
         await LoginPage.login('invalid_user', 'invalid_password');
 
         // Check if the error message is displayed
-        const isErrorDisplayed = await Page.isErrorMessage;
+        isErrorDisplayed = await Page.isErrorMessage;
         expect(isErrorDisplayed);
-    });
+    
 
-    // Test case for logging in with empty username
-    it('should not login with empty username', async () => {
-        // Login with empty username
+        //* INVALID LOGIN
+        //? Login with empty username
         await LoginPage.login('', 'secret_sauce')
 
         // Check if the error message is displayed
-        const isErrorDisplayed = await Page.isErrorMessage;
+        isErrorDisplayed = await Page.isErrorMessage;
         expect(isErrorDisplayed);
-    });
+        
 
-    // Test case for logging in with empty password
-    it('should not login with empty password', async () => {
-        // Login with empty password
+        //* INVALID LOGIN
+        //? Login with empty password
         await LoginPage.login('standard_user', '')
 
         // Check if the error message is displayed
-        const isErrorDisplayed = await Page.isErrorMessage;
+        isErrorDisplayed = await Page.isErrorMessage;
         expect(isErrorDisplayed);
-    });
+        
 
-    // Test case for logging in with invalid username and valid password
-    it('should not login with invalid username and valid password', async () => {
-        // Login with invalid username and valid password
+        //* INVALID LOGIN
+        //? Login with invalid username and valid password
         await LoginPage.login('invalid_user', 'secret_sauce')
 
         // Check if the error message is displayed
-        const isErrorDisplayed = await Page.isErrorMessage;
+        isErrorDisplayed = await Page.isErrorMessage;
         expect(isErrorDisplayed);
-    });
+        
 
-    // Test case for logging in with valid username and invalid password
-    it('should login with valid credentials', async () => {
-        // Login with valid credentials
+        //*VALID LOGIN
+        //? Login with valid credentials
         await LoginPage.login('standard_user', 'secret_sauce')
 
         // Check if the products page is displayed
