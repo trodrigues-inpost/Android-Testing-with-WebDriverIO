@@ -9,7 +9,7 @@ import 'dotenv/config';
 describe('Login Test', () => {
 
     beforeEach(async () => {
-        await browser.pause(2000);
+        await (browser as any).pause(process.env.WAIT);
         
         // Check if the login button is displayed
         await waitFE(LoginPage.loginButton);

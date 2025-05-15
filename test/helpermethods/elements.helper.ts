@@ -8,16 +8,16 @@ export async function waitFE(element) {
     await element.waitForDisplayed({ timeout: process.env.WAIT_TIMEOUT });
 }
 
-export async function tryClick(element, nTimes = 1) {
-    // Try to click the element
-    for (let i = 0; i < nTimes; i++) {
-        try {
-            await element.click();
-            return true; // Click was successful
-        } catch (error) {
-            console.error(`Click attempt ${i + 1} failed: ${error}`);
-            //Wait for a short period before retrying
-            await browser.pause(1000);
-        }
-    }
-}
+//export async function tryClick(element, nTimes = 1) {
+//    // Try to click the element
+//    for (let i = 0; i < nTimes; i++) {
+//        try {
+//            await element.click();
+//            return true; // Click was successful
+//        } catch (error) {
+//            console.error(`Click attempt ${i + 1} failed: ${error}`);
+//            //Wait for a short period before retrying
+//            await (browser as any).pause(process.env.WAIT_TIMEOUT_ELEMENT);
+//        }
+//    }
+//}

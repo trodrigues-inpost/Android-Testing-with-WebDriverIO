@@ -13,6 +13,10 @@ The tests in this repository were made with the [SauceLabs Example App](https://
 ### Optional Stuff
 - Emulated Devices
 
+### Recommended VSCode Extensions
+- Better Comments
+- JavaScript and TypeScript Nightly
+
 #
 
 ### What you should **NOT USE**
@@ -107,9 +111,11 @@ If something fails, check the bottom of the readme, there are commands that can 
 
 # `.env` File Preset
 ```ini
-       ANDROID_HOME = C:\Users\YOUR-USER-NAME\AppData\Local\Android\sdk
-        DEVICE_NAME = A12B345CD6E
-   PLATFORM_VERSION = 12.0
-           APP_PATH = apk/Android.SauceLabs.Mobile.Sample.app.2.7.1.apk
-       WAIT_TIMEOUT = 3000
+        ANDROID_HOME = C:\Users\YOUR-USER-NAME\AppData\Local\Android\sdk
+         DEVICE_NAME = A12B345CD6E
+    PLATFORM_VERSION = 12.0
+            APP_PATH = apk/Android.SauceLabs.Mobile.Sample.app.2.7.1.apk
+        WAIT_TIMEOUT = 10000
+WAIT_TIMEOUT_ELEMENT = 5000
+                WAIT = 1000
 ```
