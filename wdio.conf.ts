@@ -1,3 +1,6 @@
+// Importing .env file
+import 'dotenv/config';
+
 export const config: WebdriverIO.Config = {
     //
     // ====================
@@ -54,11 +57,15 @@ export const config: WebdriverIO.Config = {
     //
     capabilities: [{
         // capabilities for local Appium web tests on an Android Emulator
-        platformName: 'Android',
-        browserName: 'Chrome',
-        'appium:deviceName': 'Android GoogleAPI Emulator',
-        'appium:platformVersion': '12.0',
-        'appium:automationName': 'UiAutomator2'
+        platformName:                   'Android',
+        'appium:automationName':        'UiAutomator2',
+        'appium:appWaitActivity':       '*',
+        'appium:deviceName':            process.env.DEVICE_NAME,        //? Emulator name or device name (adb devices)
+        'appium:platformVersion':       process.env.PLATFORM_VERSION,   //? Android version (e.g. 12.0)
+        'appium:app':                   process.env.APP_PATH,           //? Path to the app (e.g. /path/to/app.apk)
+        'appium:autoGrantPermissions':  true, // <-- Optional, grants all permissions
+
+        //browserName:                  'Chrome', //? Not needed for android app testing
     }],
 
     //
