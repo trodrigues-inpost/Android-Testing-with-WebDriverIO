@@ -1,10 +1,10 @@
 // Login in the app
-import '../helpermethods/elements.helper.js';
+import { browser, expect } from '@wdio/globals';
+import { waitFE } from '../helpermethods/elements.helper.js';
 import LoginPage from '../pageobjects/login.page.js';
 import Page from '../pageobjects/page.ts';
-import { waitFE } from '../helpermethods/elements.helper.js';
+import '../helpermethods/elements.helper.js';
 import 'dotenv/config';
-import { browser, expect } from '@wdio/globals';
 
 describe('Login Test', () => {
 
