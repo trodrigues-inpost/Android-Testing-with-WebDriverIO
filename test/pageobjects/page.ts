@@ -20,7 +20,9 @@ class Page {
 
     // Checks if it is on the products page
     static async isProductsPage() {
-        return await $('~test-PRODUCTS').isDisplayed()
+        const elem = await $('~test-PRODUCTS');
+        await elem.waitForDisplayed({ timeout: 1000 });  // wait max 5 seconds
+        return await elem.isDisplayed();
     }
 
     // Checks if an error message is displayed
@@ -30,16 +32,35 @@ class Page {
 
     // Checks if the login button is displayed, meaning there is no user logged in
     static async isLoggedOut() {
-        return await $('~test-LOGIN').isDisplayed();
+        try {
+            const loginBtn = await $('~test-LOGIN');
+            return await loginBtn.isDisplayed();
+        } catch (err) {
+            // Element doesn't exist — assume user is not logged out
+            return false;
+        }
     }
     
-    // Checks if the user is logged in, meaning the products page is displayed
+    // Checks if the user is logged in
     static async isLoggedIn() {
-        return await this.isProductsPage();
+        try {
+            const loginBtn = await $('~test-LOGIN');
+            await loginBtn.waitForDisplayed({ timeout: 500 });  // wait max 0,5 seconds
+
+            const usernameInput = await $('~test-Username');
+            await usernameInput.waitForDisplayed({ timeout: 500 });  // wait max 0,5 seconds
+
+            const loggedIn = !(await loginBtn.isDisplayed()) && !(await usernameInput.isDisplayed());
+
+            return loggedIn;
+        } catch (err) {
+            // Element doesn't exist — assume user is not logged in
+            return false;
+        }
     }
 
     static async logout() {
-        if (await this.isLoggedIn) {
+        if (await this.isLoggedIn()) {
             // Click on the menu button
             await $('~test-Menu').click();
             

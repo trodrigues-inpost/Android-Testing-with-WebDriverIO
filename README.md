@@ -111,11 +111,13 @@ If something fails, check the bottom of the readme, there are commands that can 
 
 # `.env` File Preset
 ```ini
-        ANDROID_HOME = C:\Users\YOUR-USER-NAME\AppData\Local\Android\sdk
-         DEVICE_NAME = A12B345CD6E
-    PLATFORM_VERSION = 12.0
-            APP_PATH = apk/Android.SauceLabs.Mobile.Sample.app.2.7.1.apk
-        WAIT_TIMEOUT = 10000
-WAIT_TIMEOUT_ELEMENT = 5000
-                WAIT = 1000
+          ANDROID_HOME = C:\Users\YOUR-USER-NAME\AppData\Local\Android\sdk
+           DEVICE_NAME = A12B345CD6E
+      PLATFORM_VERSION = 12.0
+              APP_PATH = apk/Android.SauceLabs.Mobile.Sample.app.2.7.1.apk
+          WAIT_TIMEOUT = 10000
+  WAIT_TIMEOUT_ELEMENT = 5000
+                  WAIT = 1000
+         STANDARD_USER = standard_user  # Check the SauceLabs Sample application
+STANDARD_USER_PASSWORD = secret_sauce
 ```
