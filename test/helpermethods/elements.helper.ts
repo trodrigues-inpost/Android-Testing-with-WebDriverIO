@@ -1,8 +1,9 @@
 // Wait for elements to be displayed
+import { browser } from '@wdio/globals';
 import 'dotenv/config';
 
 // This function returns an error if the element is not displayed within the specified timeout
-export async function waitForElement(element) {
+export async function waitFE(element) {
     // Wait for the element to be displayed
     await element.waitForDisplayed({ timeout: process.env.WAIT_TIMEOUT });
 }
