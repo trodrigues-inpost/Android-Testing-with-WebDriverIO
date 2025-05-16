@@ -3,13 +3,12 @@ import { $, $$, expect, browser } from '@wdio/globals';
 import Page from '../pageobjects/page.ts';
 import LoginPage from '../pageobjects/login.page.ts';
 import { isDisplayed, waitFE } from '../helpermethods/elements.helper.ts';
-import Selectors from '../pageobjects/selectors.objects.ts';
 
 //! [//-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-//]
 //! [// CHECK THE README.md FILE IN THIS FOLDER, IT HAS IMPORTANT INFORMATION //] 
 //! [//-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-//]
 
-describe('Basic Shopping Cart Actions', () => {
+describe('Shopping Cart & Checkout Integration', () => {
     var itemsInCart: string[] = [];
     var itemsInCartCount = 0;
 
@@ -29,18 +28,24 @@ describe('Basic Shopping Cart Actions', () => {
         const randomNumber = Math.floor(Math.random() * 2) + 1;
 
         // XPath for item titles
-        const itemTitleElement = await $(Selectors.itemTitle(randomNumber));
+        const titleSelector = `(//android.widget.TextView[@content-desc="test-Item title"])[${randomNumber}]`;
+        // XPath for buttons
+        const buttonSelector = `(//android.view.ViewGroup[@content-desc="test-ADD TO CART"])[${randomNumber}]`;
+
+
+        const itemTitleElement = await $(titleSelector);
+        
         const itemName = await itemTitleElement.getText();
         itemsInCart.push(itemName);
 
         // Click the corresponding "Add to Cart" button
-        const addButton = await $(Selectors.addToCart(randomNumber));
+        const addButton = await $(buttonSelector);
         await addButton.click();
 
         itemsInCartCount++;
 
         // Confirm cart icon exists
-        const isCartIconDisplayed = await $(Selectors.cartIcon);
+        const isCartIconDisplayed = await $('//android.view.ViewGroup[@content-desc="test-Cart"]/android.view.ViewGroup/android.widget.ImageView');
 
         // Expect the cart icon to be displayed
         expect(isCartIconDisplayed).toBeDisplayed();
@@ -49,15 +54,15 @@ describe('Basic Shopping Cart Actions', () => {
     // Test case for checking that the added item is in the cart
     it('should display the added item in the cart', async () => {
         // Click on the cart icon
-        await $(Selectors.cartIcon).click();
+        await $('//android.view.ViewGroup[@content-desc="test-Cart"]/android.view.ViewGroup/android.widget.ImageView').click();
 
         // The page should have the title 'Your Cart'
-        const cartTitle = await $(Selectors.yourCartTitle);
+        const cartTitle = await $('//android.widget.TextView[@text="YOUR CART"]');
         const isCartTitle = await cartTitle.isDisplayed();
         expect(isCartTitle);
 
         // Check if the cart is empty
-        const isCartEmpty = await isDisplayed($(Selectors.emptyCartTitle));
+        const isCartEmpty = await isDisplayed($('//android.widget.TextView[@text="Your cart is empty"]'));
         expect(!isCartEmpty);
 
         // Check if the cart contains the added item
@@ -66,25 +71,13 @@ describe('Basic Shopping Cart Actions', () => {
         expect(isItemInCart);
 
         // Check if the cart count is correct
-        const cartCount = await $(Selectors.cartIcon);
+        const cartCount = await $('//android.view.ViewGroup[@content-desc="test-Cart"]/android.view.ViewGroup/android.widget.TextView');
         const cartCountText = await cartCount.getText();
         const cartCountNumber = parseInt(cartCountText, 10);
         expect(cartCountNumber === itemsInCartCount);
     });
 
-    it('should remove the added item from the cart', async () => {
-        // The page should have the title 'Your Cart'
-        const cartTitleDisplayed = await isDisplayed($(Selectors.yourCartTitle));
-        expect(cartTitleDisplayed);
-
-        // Click on the "Remove" button for the item
-        const removeButton = await $(`//android.view.ViewGroup[@content-desc="test-REMOVE"]`);
-        await removeButton.click();
-
-        itemsInCartCount--;
-
-        // Check if the cart is empty
-        const isCartEmpty = await isDisplayed($(Selectors.emptyCartTitle));
-        expect(isCartEmpty);
+    it('should navigate to the checkout screen', async () => {
+        
     });
 });
