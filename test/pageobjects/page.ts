@@ -2,7 +2,7 @@ import { $$, $ } from '@wdio/globals'
 
 // The main page of the sauce labs application.
 import 'dotenv/config';
-import { waitFE } from '../helpermethods/elements.helper.ts';
+import { elementDisplayed, waitFE } from '../helpermethods/elements.helper.ts';
 
 class Page {
     // Page elements
@@ -44,18 +44,14 @@ class Page {
     // Checks if the user is logged in
     static async isLoggedIn() {
         try {
-            const loginBtn = await $('~test-LOGIN');
-            await loginBtn.waitForDisplayed({ timeout: 500 });  // wait max 0,5 seconds
+            const loginBtnDisplayed = await elementDisplayed($('~test-LOGIN'));
+            const usernameDisplayed = await elementDisplayed($('~test-Username'));
 
-            const usernameInput = await $('~test-Username');
-            await usernameInput.waitForDisplayed({ timeout: 500 });  // wait max 0,5 seconds
-
-            const loggedIn = !(await loginBtn.isDisplayed()) && !(await usernameInput.isDisplayed());
-
-            return loggedIn;
+            // If neither loginBtn nor username is visible, we assume we're logged in
+            return !loginBtnDisplayed && !usernameDisplayed;
         } catch (err) {
-            // Element doesn't exist — assume user is not logged in
-            return false;
+            console.warn('Error in isLoggedIn():', err);
+            return false; // safer fallback than blindly returning true
         }
     }
 

@@ -13,7 +13,7 @@ const logins = [
     [false, 'invalid credentials', 'invalid_user', 'invalid_password'],
     [false, 'valid username and invalid password', process.env.STANDARD_USER, 'invalid_password'],
     [false, 'valid password and invalid username', 'invalid_user', process.env.STANDARD_USER_PASSWORD],
-    //![false, 'locked out user', process.env.LOCKED_OUT_USER, process.env.STANDARD_USER_PASSWORD],
+    [false, 'locked out user', process.env.LOCKED_OUT_USER, process.env.STANDARD_USER_PASSWORD],
     [true, 'valid credentials', process.env.STANDARD_USER, process.env.STANDARD_USER_PASSWORD],
 ];
 
@@ -37,11 +37,10 @@ describe('The Login Feature', () => {
             await LoginPage.login(username, password);
 
             // Assert the expected outcome
-            //TODO: Change this to a Page.isLoggedIn() check
-            const isLoggedOut = await Page.isLoggedOut();
-            expect(isLoggedOut === !shouldLogin);
+            const isLoggedIn = await Page.isLoggedIn();
+            expect(isLoggedIn === shouldLogin);
             console.log(`Should login: ${shouldLogin}`);
-            console.log(`Is logged in: ${isLoggedOut}`);
+            console.log(`Is logged in: ${isLoggedIn}`);
 
             if (!shouldLogin) {
                 // If the loggin isn't supposed to be successful, check for the error message

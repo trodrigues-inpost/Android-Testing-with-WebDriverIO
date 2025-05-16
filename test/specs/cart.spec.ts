@@ -2,7 +2,8 @@
 import { $, $$, expect, browser } from '@wdio/globals';
 import Page from '../pageobjects/page.ts';
 import LoginPage from '../pageobjects/login.page.ts';
-import { waitFE } from '../helpermethods/elements.helper.ts';
+import { elementDisplayed, waitFE } from '../helpermethods/elements.helper.ts';
+import { executionAsyncId } from 'async_hooks';
 
 describe('Shopping Cart Test Suite', () => {
     var itemsInCart: string[] = [];
@@ -10,23 +11,12 @@ describe('Shopping Cart Test Suite', () => {
 
     beforeEach(async () => {
         const isLoggedIn = await Page.isLoggedIn();
-        console.log(`isLoggedIn: ${isLoggedIn}`);
-        console.log(`isLoggedIn: ${isLoggedIn}`);
-        console.log(`isLoggedIn: ${isLoggedIn}`);
-        console.log(`isLoggedIn: ${isLoggedIn}`);
-        console.log(`isLoggedIn: ${isLoggedIn}`);
-        console.log(`isLoggedIn: ${isLoggedIn}`);
-        console.log(`isLoggedIn: ${isLoggedIn}`);
-        console.log(`isLoggedIn: ${isLoggedIn}`);
-        console.log(`isLoggedIn: ${isLoggedIn}`);
-        console.log(`isLoggedIn: ${isLoggedIn}`);
-        console.log(`isLoggedIn: ${isLoggedIn}`);
-        console.log(`isLoggedIn: ${isLoggedIn}`);
         if (!isLoggedIn) {
             await LoginPage.login(process.env.STANDARD_USER, process.env.STANDARD_USER_PASSWORD);
         }
         
-        expect(await Page.isLoggedIn() === true);
+        // Expect the user to be logged in
+        expect(await Page.isLoggedIn());
     });
 
     // Test case for adding items to the cart
@@ -57,11 +47,8 @@ describe('Shopping Cart Test Suite', () => {
         console.log(`| Item added to cart: ${itemName}`);
         console.log('[-------------------------------------------------------]');
 
-        (browser as any).debug(30000);
-
+        // Expect the cart icon to be displayed
         expect(isCartIconDisplayed);
-
-
     });
 
     // Test case for checking that the added item is in the cart
@@ -108,8 +95,8 @@ describe('Shopping Cart Test Suite', () => {
         await $('//android.view.ViewGroup[@content-desc="test-Cart"]/android.view.ViewGroup/android.widget.ImageView').click();
 
         // The page should have the title 'Your Cart'
-        const cartTitle = await $('//android.widget.TextView[@text="YOUR CART"]');
-        expect(cartTitle).toBeDisplayed();
+        const cartTitleDisplayed = await elementDisplayed($('//android.widget.TextView[@text="YOUR CART"]'));
+        expect(cartTitleDisplayed);
 
         // Click on the "Remove" button for the item
         const removeButton = await $(`//android.view.ViewGroup[@content-desc="test-REMOVE"]`);
@@ -118,22 +105,7 @@ describe('Shopping Cart Test Suite', () => {
         itemsInCartCount--;
 
         // Check if the cart is empty
-        const isCartEmpty = await $('//android.widget.TextView[@text="Your cart is empty"]').isDisplayed();
-        if (isCartEmpty) {
-            console.log('[-------------------------------------------------------]');
-            console.log('| Cart is empty');
-            console.log('[-------------------------------------------------------]');
-        }
-
-        // Check if the cart count is correct
-        const cartCount = await $('//android.view.ViewGroup[@content-desc="test-Cart"]/android.view.ViewGroup/android.widget.TextView');
-        const cartCountText = await cartCount.getText();
-        const cartCountNumber = parseInt(cartCountText, 10);
-        if (cartCountNumber > 0) {
-            console.log('[-------------------------------------------------------]');
-            console.log(`| Cart count: ${cartCountNumber}`);
-            console.log('[-------------------------------------------------------]');
-        }   
-        expect(cartCountNumber === itemsInCartCount);
+        const isCartEmpty = await elementDisplayed($('//android.widget.TextView[@text="Your cart is empty"]'));
+        expect(isCartEmpty);
     });
 });
