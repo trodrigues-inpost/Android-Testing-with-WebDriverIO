@@ -1,6 +1,5 @@
 // Login in the app
 import { browser, expect } from '@wdio/globals';
-import { waitFE } from '../helpermethods/elements.helper.js';
 import LoginPage from '../pageobjects/login.page.js';
 import Page from '../pageobjects/page.ts';
 import '../helpermethods/elements.helper.js';
@@ -38,14 +37,14 @@ describe('The Login Feature', () => {
 
             // Assert the expected outcome
             const isLoggedIn = await Page.isLoggedIn();
+
+            // Expect `isLoggedIn` to be the same as `shouldLogin`
             expect(isLoggedIn === shouldLogin);
-            console.log(`Should login: ${shouldLogin}`);
-            console.log(`Is logged in: ${isLoggedIn}`);
 
             if (!shouldLogin) {
                 // If the loggin isn't supposed to be successful, check for the error message
                 const isErrorMessageDisplayed = await Page.isErrorMessage();
-                expect(isErrorMessageDisplayed === true);
+                expect(isErrorMessageDisplayed); //isErrorMessageDisplayed === true
             }
         });
     });

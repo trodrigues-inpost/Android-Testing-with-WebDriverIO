@@ -4,7 +4,11 @@ import Page from '../pageobjects/page.ts';
 import LoginPage from '../pageobjects/login.page.ts';
 import { isDisplayed, waitFE } from '../helpermethods/elements.helper.ts';
 
-describe('Shopping Cart Test Suite', () => {
+//! [//-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-//]
+//! [// CHECK THE README.md FILE IN THIS FOLDER, IT HAS IMPORTANT INFORMATION //] 
+//! [//-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-//]
+
+describe('Basic Shopping Cart Actions', () => {
     var itemsInCart: string[] = [];
     var itemsInCartCount = 0;
 
@@ -73,10 +77,6 @@ describe('Shopping Cart Test Suite', () => {
     });
 
     it('should remove the added item from the cart', async () => {
-        // Click on the cart icon
-        // FIXME: It's already on the cart screen, why do this?
-        //await $('(//android.view.ViewGroup[@content-desc="test-Cart"]/android.view.ViewGroup/android.widget.ImageView').click();
-
         // The page should have the title 'Your Cart'
         const cartTitleDisplayed = await isDisplayed($('//android.widget.TextView[@text="YOUR CART"]'));
         expect(cartTitleDisplayed);
