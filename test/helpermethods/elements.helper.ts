@@ -8,19 +8,19 @@ export async function waitFE(element, timeout = process.env.WAIT_TIMEOUT) {
     await element.waitForDisplayed({ timeout: timeout });
 }
 
-export async function elementDisplayed(element) {
+export async function isDisplayed(element) {
     try {
         const elementExists = await element.isExisting();
+        console.log(elementExists);
         
-        const elementDisplayed = elementExists ? await element.isDisplayed() : false;
+        const isDisplayed = elementExists ? await element.isDisplayed() : false;
 
-        return elementDisplayed;
+        return isDisplayed;
     }
     catch (error) {
         console.error(`Error checking element display status: ${error}`);
         return false; // Return false if there's an error
     }
-    return false; // Return false if the element doesn't exist
 }
 
 

@@ -2,8 +2,7 @@
 import { $, $$, expect, browser } from '@wdio/globals';
 import Page from '../pageobjects/page.ts';
 import LoginPage from '../pageobjects/login.page.ts';
-import { elementDisplayed, waitFE } from '../helpermethods/elements.helper.ts';
-import { executionAsyncId } from 'async_hooks';
+import { isDisplayed, waitFE } from '../helpermethods/elements.helper.ts';
 
 describe('Shopping Cart Test Suite', () => {
     var itemsInCart: string[] = [];
@@ -20,7 +19,7 @@ describe('Shopping Cart Test Suite', () => {
     });
 
     // Test case for adding items to the cart
-    it('should add items to the cart', async () => {
+    it('should add an item to the cart', async () => {
         // Title and Add button are both at index `randomNumber`
         const randomNumber = Math.floor(Math.random() * 2) + 1;
 
@@ -31,6 +30,7 @@ describe('Shopping Cart Test Suite', () => {
 
 
         const itemTitleElement = await $(titleSelector);
+        
         const itemName = await itemTitleElement.getText();
         itemsInCart.push(itemName);
 
@@ -41,18 +41,14 @@ describe('Shopping Cart Test Suite', () => {
         itemsInCartCount++;
 
         // Confirm cart icon exists
-        const isCartIconDisplayed = await $('//android.view.ViewGroup[@content-desc="test-Cart"]/android.view.ViewGroup/android.widget.ImageView').isDisplayed();
-
-        console.log('[-------------------------------------------------------]');
-        console.log(`| Item added to cart: ${itemName}`);
-        console.log('[-------------------------------------------------------]');
+        const isCartIconDisplayed = await $('//android.view.ViewGroup[@content-desc="test-Cart"]/android.view.ViewGroup/android.widget.ImageView');
 
         // Expect the cart icon to be displayed
-        expect(isCartIconDisplayed);
+        expect(isCartIconDisplayed).toBeDisplayed();
     });
 
     // Test case for checking that the added item is in the cart
-    it('should check that the added item is in the cart', async () => {
+    it('should display the added item in the cart', async () => {
         // Click on the cart icon
         await $('//android.view.ViewGroup[@content-desc="test-Cart"]/android.view.ViewGroup/android.widget.ImageView').click();
 
@@ -61,41 +57,28 @@ describe('Shopping Cart Test Suite', () => {
         expect(cartTitle).toBeDisplayed();
 
         // Check if the cart is empty
-        const isCartEmpty = await $('//android.widget.TextView[@text="Your cart is empty"]').isDisplayed();
-        if (isCartEmpty) {
-            console.log('[-------------------------------------------------------]');
-            console.log('| Cart is empty');
-            console.log('[-------------------------------------------------------]');
-        }
+        const isCartEmpty = await isDisplayed($('//android.widget.TextView[@text="Your cart is empty"]'));
+        expect(!isCartEmpty);
 
         // Check if the cart contains the added item
         const cartItemTitle = await $(`//android.widget.TextView[@text="${itemsInCart[0]}"]`);
-        const isItemInCart = await cartItemTitle.isDisplayed();
-        if (isItemInCart) {
-            console.log('[-------------------------------------------------------]');
-            console.log(`| Item in cart: ${itemsInCart[0]}`);
-            console.log('[-------------------------------------------------------]');
-        }
-        expect(isItemInCart).toBe(true);
+        const isItemInCart = await cartItemTitle.isDisplayed()
+        expect(isItemInCart);
 
         // Check if the cart count is correct
         const cartCount = await $('//android.view.ViewGroup[@content-desc="test-Cart"]/android.view.ViewGroup/android.widget.TextView');
         const cartCountText = await cartCount.getText();
         const cartCountNumber = parseInt(cartCountText, 10);
-        if (cartCountNumber > 0) {
-            console.log('[-------------------------------------------------------]');
-            console.log(`| Cart count: ${cartCountNumber}`);
-            console.log('[-------------------------------------------------------]');
-        }   
-        expect(cartCountNumber).toBe(itemsInCartCount);
+        expect(cartCountNumber === itemsInCartCount);
     });
 
-    it('should remove items from the cart', async () => {
+    it('should remove the added item from the cart', async () => {
         // Click on the cart icon
-        await $('//android.view.ViewGroup[@content-desc="test-Cart"]/android.view.ViewGroup/android.widget.ImageView').click();
+        // FIXME: It's already on the cart screen, why do this?
+        //await $('(//android.view.ViewGroup[@content-desc="test-Cart"]/android.view.ViewGroup/android.widget.ImageView').click();
 
         // The page should have the title 'Your Cart'
-        const cartTitleDisplayed = await elementDisplayed($('//android.widget.TextView[@text="YOUR CART"]'));
+        const cartTitleDisplayed = await isDisplayed($('//android.widget.TextView[@text="YOUR CART"]'));
         expect(cartTitleDisplayed);
 
         // Click on the "Remove" button for the item
@@ -105,7 +88,7 @@ describe('Shopping Cart Test Suite', () => {
         itemsInCartCount--;
 
         // Check if the cart is empty
-        const isCartEmpty = await elementDisplayed($('//android.widget.TextView[@text="Your cart is empty"]'));
+        const isCartEmpty = await isDisplayed($('//android.widget.TextView[@text="Your cart is empty"]'));
         expect(isCartEmpty);
     });
 });
