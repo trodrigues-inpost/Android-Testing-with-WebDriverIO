@@ -5,9 +5,9 @@ import LoginPage from '../pageobjects/login.page.ts';
 import { isDisplayed, waitFE } from '../helpermethods/elements.helper.ts';
 import Selectors from '../pageobjects/selectors.objects.ts';
 
-//! [//-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-//]
-//! [// CHECK THE README.md FILE IN THIS FOLDER, IT HAS IMPORTANT INFORMATION //] 
-//! [//-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-//]
+//! [===========================================================================]
+//! [== CHECK THE README.md FILE IN THIS FOLDER, IT HAS IMPORTANT INFORMATION ==] 
+//! [===========================================================================]
 
 describe('Basic Shopping Cart Actions', () => {
     var itemsInCart: string[] = [];
@@ -40,7 +40,7 @@ describe('Basic Shopping Cart Actions', () => {
         itemsInCartCount++;
 
         // Confirm cart icon exists
-        const isCartIconDisplayed = await $(Selectors.cartIcon);
+        const isCartIconDisplayed = await $(Selectors.cartIcon); 
 
         // Expect the cart icon to be displayed
         expect(isCartIconDisplayed).toBeDisplayed();
@@ -80,7 +80,7 @@ describe('Basic Shopping Cart Actions', () => {
         // Click on the "Remove" button for the item
         const removeButton = await $(`//android.view.ViewGroup[@content-desc="test-REMOVE"]`);
         await removeButton.click();
-
+        
         itemsInCartCount--;
 
         // Check if the cart is empty

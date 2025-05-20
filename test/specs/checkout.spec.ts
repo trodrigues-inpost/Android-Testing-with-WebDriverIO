@@ -100,20 +100,22 @@ describe('Shopping Cart & Checkout Integration', () => {
         expect(await fieldPostalCode.getAttribute('text')).toBe(postalCode);
     });
 
-    //TODO: Write what it SHOULD actually do
-    it('should continue to ...', async () => {
+    it('should continue to the details tab and finish the checkout process', async () => {
         const continueBtn = await $(Selectors.checkoutContinueButton);
 
         await continueBtn.click();
-        
-        await (driver as any).execute('mobile: scrollGesture', {
-            left: 100,         // starting X position
-            top: 100,          // starting Y position
-            width: 800,        // area width to perform the scroll
-            height: 1000,      // area height
-            direction: 'down', // direction: 'up', 'down', 'left', 'right'
-            percent: 0.9       // how much of the screen to scroll
+
+        //! This might scroll a little too far
+        await (driver as any).execute('mobile: scroll', { 
+            strategy: 'accessibility id', 
+            selector: Selectors.checkoutFinishButton.replace('~', ''), 
+            direction: 'down' 
         });
 
+        const finishBtn = await $(Selectors.checkoutFinishButton);
+
+        await expect(finishBtn).toBeDisplayed();
+
+        await finishBtn.click();
     });
 });
