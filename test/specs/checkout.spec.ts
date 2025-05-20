@@ -78,6 +78,7 @@ describe('Shopping Cart & Checkout Integration', () => {
     });
 
     it('should navigate to the checkout screen', async () => {
+        // Press the 'CHECKOUT' Button
         const checkoutBtn = await $(Selectors.checkoutButton);
 
         await checkoutBtn.click();
@@ -86,10 +87,12 @@ describe('Shopping Cart & Checkout Integration', () => {
     });
 
     it('should fill the checkout form', async () => {
+        // Selecting Components
         const fieldFirstName = await $(Selectors.checkoutFirstName);
         const fieldLastName = await $(Selectors.checkoutLastName);
         const fieldPostalCode = await $(Selectors.checkoutPostalCode);
         
+        // Set Values
         await $(fieldFirstName).setValue(firstName);
         await $(fieldLastName).setValue(lastName);
         await $(fieldPostalCode).setValue(postalCode);
@@ -101,9 +104,12 @@ describe('Shopping Cart & Checkout Integration', () => {
     });
 
     it('should continue to the details tab and finish the checkout process', async () => {
+        // Press the 'CONTINUE' Button
         const continueBtn = await $(Selectors.checkoutContinueButton);
 
         await continueBtn.click();
+
+        await expect($(Selectors.errorMessage)).not.toBeDisplayed();
 
         //! This might scroll a little too far
         await (driver as any).execute('mobile: scroll', { 
@@ -112,10 +118,25 @@ describe('Shopping Cart & Checkout Integration', () => {
             direction: 'down' 
         });
 
+        // Press the 'FINISH' Button
         const finishBtn = await $(Selectors.checkoutFinishButton);
 
         await expect(finishBtn).toBeDisplayed();
 
         await finishBtn.click();
+        
+
+        // Press the 'BACK HOME' button
+        const backHomeBtn = await $(Selectors.backHome);
+
+        await expect(backHomeBtn).toBeDisplayed();
+
+        backHomeBtn.click();
+
+
+        // Check if it's in the products page
+        const productsPage = await $(Selectors.productsPage);
+
+        await expect(productsPage).toBeDisplayed();
     });
 });

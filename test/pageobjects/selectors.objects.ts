@@ -3,6 +3,9 @@ class Selectors {
     static get emptyCartTitle() { return '//android.widget.TextView[@text="Your cart is empty"]'; }
     static get yourCartTitle() { return '//android.widget.TextView[@text="YOUR CART"]'; }
     static get cartIcon() { return '//android.view.ViewGroup[@content-desc="test-Cart"]/android.view.ViewGroup/android.widget.ImageView'; }
+    
+    static get productsPage() { return '~test-PRODUCTS'; }
+    
     // Checkout Related
     static get checkoutButton() { return '~test-CHECKOUT'; }
     static get checkoutContinueButton() { return '//android.view.ViewGroup[@content-desc="test-CONTINUE"]'; }
@@ -10,6 +13,10 @@ class Selectors {
     static get checkoutLastName() { return '//android.widget.EditText[@content-desc="test-Last Name"]'; }
     static get checkoutPostalCode() { return '//android.widget.EditText[@content-desc="test-Zip/Postal Code"]'; }
     static get checkoutFinishButton() { return '//android.view.ViewGroup[@content-desc="test-FINISH"]'; }
+    static get backHome() { return '//android.view.ViewGroup[@content-desc="test-BACK HOME"]'; }
+
+    // Error Messages
+    static get errorMessage() { return '//android.view.ViewGroup[@content-desc="test-Error message"]'; }
 
     static itemTitle(num) {
         return `(//android.widget.TextView[@content-desc="test-Item title"])[${num}]`;

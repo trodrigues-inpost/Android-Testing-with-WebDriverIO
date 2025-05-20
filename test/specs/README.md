@@ -1,5 +1,9 @@
 ## XPath Element Selection
 
+The `Selectors` class is in the `selectors.objects.ts` file.
+
+It's a class mainly composed by `getters` for XPath selector values.
+
 ### When selecting elements WITH indexing
 ```ts
 // Element Selection by XPath

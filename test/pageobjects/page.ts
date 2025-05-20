@@ -13,10 +13,6 @@ class Page {
     // ADD TO CART buttons
     // 	(//android.view.ViewGroup[@content-desc="test-ADD TO CART"])[X]
     static get addToCartButtons() { return $$('//android.view.ViewGroup[@content-desc="test-ADD TO CART"]') }
-    
-    Page() {
-        // Constructor for the Page class
-    }
 
     // Checks if it is on the products page
     static async isProductsPage() {
