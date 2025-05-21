@@ -1,8 +1,8 @@
 // Shopping Cart Test Suite
-import { $, $$, expect, browser } from '@wdio/globals';
+import { $, expect } from '@wdio/globals';
 import Page from '../pageobjects/page.ts';
 import LoginPage from '../pageobjects/login.page.ts';
-import { isDisplayed, waitFE } from '../helpermethods/elements.helper.ts';
+import { isDisplayed } from '../helpermethods/elements.helper.ts';
 import Selectors from '../pageobjects/selectors.objects.ts';
 
 //! [===========================================================================]
