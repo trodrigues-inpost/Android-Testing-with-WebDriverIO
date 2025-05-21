@@ -1,10 +1,11 @@
 // Shopping Cart Test Suite
-import { $, $$, expect, browser, driver } from '@wdio/globals';
-import Page from '../pageobjects/page.ts';
-import LoginPage from '../pageobjects/login.page.ts';
-import { isDisplayed, waitFE } from '../helpermethods/elements.helper.ts';
+import { $, expect, browser, driver } from '@wdio/globals';
+import { isDisplayed } from '../helpermethods/elements.helper.ts';
 import Selectors from '../pageobjects/selectors.objects.ts';
-import { post } from 'jquery';
+import LoginPage from '../pageobjects/login.page.ts';
+import Page from '../pageobjects/page.ts';
+import 'dotenv/config';
+
 
 //! [//-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-//]
 //! [// CHECK THE README.md FILE IN THIS FOLDER, IT HAS IMPORTANT INFORMATION //] 
@@ -122,8 +123,9 @@ describe('Shopping Cart & Checkout Integration', () => {
         const finishBtn = await $(Selectors.checkoutFinishButton);
 
         await expect(finishBtn).toBeDisplayed();
-
+        await (browser as any).pause((process.env.WAIT));
         await finishBtn.click();
+
         
 
         // Press the 'BACK HOME' button

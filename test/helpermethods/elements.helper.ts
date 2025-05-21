@@ -23,18 +23,20 @@ export async function isDisplayed(element) {
     }
 }
 
+export function stylishNumber(num: number) {
+    const asString = num.toString();
 
-////// UNUSED CODE
-////export async function tryClick(element, nTimes = 1) {
-////    // Try to click the element
-////    for (let i = 0; i < nTimes; i++) {
-////        try {
-////            await element.click();
-////            return true; // Click was successful
-////        } catch (error) {
-////            console.error(`Click attempt ${i + 1} failed: ${error}`);
-////            //Wait for a short period before retrying
-////            await (browser as any).pause(process.env.WAIT_TIMEOUT_ELEMENT);
-////        }
-////    }
-////}
+    console.log(asString.length);
+
+    var line = '';
+
+    for (let index = 0; index < asString.length; index++) {
+        line += '-';
+    }
+
+    console.log('');
+    console.log(`[-${line}-]`);
+    console.log(`| ${num} |`);
+    console.log(`[-${line}-]`);
+    console.log('');
+}
