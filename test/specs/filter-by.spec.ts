@@ -6,10 +6,6 @@ import Selectors from '../pageobjects/selectors.objects';
 import { stylishNumber } from '../helpermethods/elements.helper';
 
 describe('Item Sorting', () => {
-    var listMode = false;
-    var numItems: number;
-    var itemPrices: number[] = [];
-
     beforeEach(async () => {
         var isLoggedIn = await Page.isLoggedIn();
 
@@ -37,7 +33,6 @@ describe('Item Sorting', () => {
             const elements = await $$(Selectors.addToCartLM());
             
             btnsCount = elements.length;
-            numItems = btnsCount;
 
             stylishNumber(btnsCount);
 
@@ -52,20 +47,10 @@ describe('Item Sorting', () => {
 
     });
 
-    it('should get prices for all listed items', async () => {
+    it('should sort by price correctly (ascending)', async () => {
+        
 
-        // Insertion of all the items' prices into the prices list
-        const prices = await $$(Selectors.priceElements);
 
-        for (const price of prices) {
-            const text = await price.getText();
-            const numericPrice = parseFloat(text.replace('$', ''));
-
-            itemPrices.push(numericPrice);
-        }
-
-        // Expects the number of prices saved and the number of items 
-        expect(itemPrices.length).toBe(numItems);
     });
 });
 

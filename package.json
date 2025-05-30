@@ -1,0 +1,22 @@
+{
+  "name": "Android-Testing-with-WebDriverIO",
+  "type": "module",
+  "devDependencies": {
+    "@types/jquery": "^3.5.32",
+    "@types/node": "^22.15.18",
+    "@wdio/allure-reporter": "^9.13.0",
+    "@wdio/appium-service": "^9.13.0",
+    "@wdio/cli": "^9.13.0",
+    "@wdio/globals": "^9.13.0",
+    "@wdio/json-reporter": "^9.13.0",
+    "@wdio/local-runner": "^9.13.0",
+    "@wdio/mocha-framework": "^9.13.0",
+    "@wdio/spec-reporter": "^9.13.0",
+    "appium": "^2.18.0",
+    "appium-uiautomator2-driver": "^4.2.3",
+    "appium-windows-driver": "^4.4.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "wdio-vscode-service": "^6.1.3"
+  }
+}
