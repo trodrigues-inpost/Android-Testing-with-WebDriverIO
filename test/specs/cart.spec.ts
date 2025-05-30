@@ -6,19 +6,22 @@ import { isDisplayed } from '../helpermethods/elements.helper.ts';
 import Selectors from '../pageobjects/selectors.objects.ts';
 
 //! [===========================================================================]
-//! [== CHECK THE README.md FILE IN THIS FOLDER, IT HAS IMPORTANT INFORMATION ==] 
+//! [== CHECK THE README.md FILE IN THIS FOLDER, IT HAS IMPORTANT INFORMATION ==]
 //! [===========================================================================]
 
 describe('Basic Shopping Cart Actions', () => {
-    var itemsInCart: string[] = [];
-    var itemsInCartCount = 0;
+    const itemsInCart: string[] = [];
+    let itemsInCartCount = 0;
 
     beforeEach(async () => {
         const isLoggedIn = await Page.isLoggedIn();
         if (!isLoggedIn) {
-            await LoginPage.login(process.env.STANDARD_USER, process.env.STANDARD_USER_PASSWORD);
+            await LoginPage.login(
+                String(process.env.STANDARD_USER),
+                String(process.env.STANDARD_USER_PASSWORD)
+            );
         }
-        
+
         // Expect the user to be logged in
         expect(await Page.isLoggedIn());
     });
@@ -40,7 +43,7 @@ describe('Basic Shopping Cart Actions', () => {
         itemsInCartCount++;
 
         // Confirm cart icon exists
-        const isCartIconDisplayed = await $(Selectors.cartIcon); 
+        const isCartIconDisplayed = await $(Selectors.cartIcon);
 
         // Expect the cart icon to be displayed
         expect(isCartIconDisplayed).toBeDisplayed();
@@ -62,7 +65,7 @@ describe('Basic Shopping Cart Actions', () => {
 
         // Check if the cart contains the added item
         const cartItemTitle = await $(`//android.widget.TextView[@text="${itemsInCart[0]}"]`);
-        const isItemInCart = await cartItemTitle.isDisplayed()
+        const isItemInCart = await cartItemTitle.isDisplayed();
         expect(isItemInCart);
 
         // Check if the cart count is correct
@@ -80,7 +83,7 @@ describe('Basic Shopping Cart Actions', () => {
         // Click on the "Remove" button for the item
         const removeButton = await $(`//android.view.ViewGroup[@content-desc="test-REMOVE"]`);
         await removeButton.click();
-        
+
         itemsInCartCount--;
 
         // Check if the cart is empty
