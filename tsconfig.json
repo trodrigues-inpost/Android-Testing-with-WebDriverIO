@@ -30,6 +30,7 @@
 			"~helpers/*": ["test/helpers/*"],
 			"~po/*": ["test/po/*"],
 			"~routines/*": ["test/routines/*"],
+			"~pageobjects/*": ["test/pageobjects/*"],
 			"~specs/*": ["test/specs/*"],
 			"~utilities/*": ["test/utilities/*"]
 		}
@@ -39,13 +40,12 @@
 		"test/api",
 		"config",
 		"test/constants",
-		"test/po",
+		"test/pageobjects",
 		"test/routines",
 		"test/specs",
 		"test/utilities",
 		"wdio.conf.ts",
 		"test/api",
-		"visual-test",
 		"test/helpers",
 		"expect.extensions.ts"
 	],
