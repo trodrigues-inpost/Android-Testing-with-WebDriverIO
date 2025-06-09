@@ -6,9 +6,8 @@ import LoginPage from '../pageobjects/login.page.ts';
 import Page from '../pageobjects/page.ts';
 import 'dotenv/config';
 
-
 //! [//-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-//]
-//! [// CHECK THE README.md FILE IN THIS FOLDER, IT HAS IMPORTANT INFORMATION //] 
+//! [// CHECK THE README.md FILE IN THIS FOLDER, IT HAS IMPORTANT INFORMATION //]
 //! [//-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-//]
 
 const firstName = 'Test First Name';
@@ -16,15 +15,18 @@ const lastName = 'Test Last Name';
 const postalCode = '1234-567';
 
 describe('Shopping Cart & Checkout Integration', () => {
-    var itemsInCart: string[] = [];
-    var itemsInCartCount = 0;
+    const itemsInCart: string[] = [];
+    let itemsInCartCount = 0;
 
     beforeEach(async () => {
         const isLoggedIn = await Page.isLoggedIn();
         if (!isLoggedIn) {
-            await LoginPage.login(process.env.STANDARD_USER, process.env.STANDARD_USER_PASSWORD);
+            await LoginPage.login(
+                String(process.env.STANDARD_USER),
+                String(process.env.STANDARD_USER_PASSWORD)
+            );
         }
-        
+
         // Expect the user to be logged in
         expect(await Page.isLoggedIn());
     });
@@ -68,7 +70,7 @@ describe('Shopping Cart & Checkout Integration', () => {
 
         // Check if the cart contains the added item
         const cartItemTitle = await $(`//android.widget.TextView[@text="${itemsInCart[0]}"]`);
-        const isItemInCart = await cartItemTitle.isDisplayed()
+        const isItemInCart = await cartItemTitle.isDisplayed();
         expect(isItemInCart);
 
         // Check if the cart count is correct
@@ -92,7 +94,7 @@ describe('Shopping Cart & Checkout Integration', () => {
         const fieldFirstName = await $(Selectors.checkoutFirstName);
         const fieldLastName = await $(Selectors.checkoutLastName);
         const fieldPostalCode = await $(Selectors.checkoutPostalCode);
-        
+
         // Set Values
         await $(fieldFirstName).setValue(firstName);
         await $(fieldLastName).setValue(lastName);
@@ -113,20 +115,18 @@ describe('Shopping Cart & Checkout Integration', () => {
         await expect($(Selectors.errorMessage)).not.toBeDisplayed();
 
         //! This might scroll a little too far
-        await (driver as any).execute('mobile: scroll', { 
-            strategy: 'accessibility id', 
-            selector: Selectors.checkoutFinishButton.replace('~', ''), 
-            direction: 'down' 
+        await (driver as any).execute('mobile: scroll', {
+            strategy: 'accessibility id',
+            selector: Selectors.checkoutFinishButton.replace('~', ''),
+            direction: 'down'
         });
 
         // Press the 'FINISH' Button
         const finishBtn = await $(Selectors.checkoutFinishButton);
 
         await expect(finishBtn).toBeDisplayed();
-        await (browser as any).pause((process.env.WAIT));
+        await (browser as any).pause(process.env.WAIT);
         await finishBtn.click();
-
-        
 
         // Press the 'BACK HOME' button
         const backHomeBtn = await $(Selectors.backHome);
@@ -134,7 +134,6 @@ describe('Shopping Cart & Checkout Integration', () => {
         await expect(backHomeBtn).toBeDisplayed();
 
         backHomeBtn.click();
-
 
         // Check if it's in the products page
         const productsPage = await $(Selectors.productsPage);

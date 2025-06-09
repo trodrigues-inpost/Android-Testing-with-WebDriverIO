@@ -1,32 +1,53 @@
 {
-    "compilerOptions": {
-        "moduleResolution": "node",
-        "module": "ESNext",
-        "target": "es2022",
-        "lib": [
-            "es2022",
-            "dom"
-        ],
-        "types": [
-            "node",
-            "@wdio/globals/types",
-            //"expect-webdriverio",
-            "@wdio/mocha-framework",
-            "@wdio/appium-service",
-            "wdio-vscode-service"
-        ],
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "noEmit": true,
-        "allowImportingTsExtensions": true,
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "strict": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "noFallthroughCasesInSwitch": true
-    },
-    "include": [
-        "wdio.conf.ts"
-    ]
+	"compilerOptions": {
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"module": "commonjs",
+		"target": "es2022",
+		"lib": ["es2022", "dom"],
+		"types": [
+			"node",
+			"@wdio/globals/types",
+			"expect-webdriverio",
+			"@wdio/mocha-framework",
+			"@wdio/appium-service"
+		],
+		"skipLibCheck": true,
+		"noEmit": true,
+		"allowImportingTsExtensions": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+		"baseUrl": ".",
+		"paths": {
+			"~actions/*": ["actions/*"],
+			"~config/*": ["config/*"],
+			"~api/*": ["test/api/*"],
+			"~constants/*": ["test/constants/*"],
+			"~helpers/*": ["test/helpers/*"],
+			"~po/*": ["test/po/*"],
+			"~routines/*": ["test/routines/*"],
+			"~specs/*": ["test/specs/*"],
+			"~utilities/*": ["test/utilities/*"]
+		}
+	},
+	"include": [
+		"actions",
+		"test/api",
+		"config",
+		"test/constants",
+		"test/po",
+		"test/routines",
+		"test/specs",
+		"test/utilities",
+		"wdio.conf.ts",
+		"test/api",
+		"visual-test",
+		"test/helpers",
+		"expect.extensions.ts"
+	],
+	"exclude": ["node_modules"]
 }
