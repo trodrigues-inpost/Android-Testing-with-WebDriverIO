@@ -1,4 +1,5 @@
 allure-results/
+allure-report/
 json-results/
 .env
 node_modules/

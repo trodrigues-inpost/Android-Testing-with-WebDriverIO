@@ -33,7 +33,7 @@ exports.config = {
                     process.cwd(),
                     process.env.APP_PATH_ANDROID || './apk/Android.SauceLabs.Mobile.Sample.app.2.7.1.apk'
                 ),
-                'appium:appWaitActivity': 'com.swaglabsmobileapp/com.swaglabsmobileapp.MainActivity',
+                'appium:appWaitActivity': '*',
                 'appium:noReset': false,
                 'appium:newCommandTimeout': 240,
                 'appium:disableWindowAnimation': true
